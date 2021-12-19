@@ -44,7 +44,7 @@ make install
 
 2. 找到编译后的 so 文件: 一般在 build 文件夹下，比如我在：`/app/build/intermediates/merged_native_libs/debug/out/lib/arm64-v8a/libbreakpadapp.so`，个人建议也可以在编译后的 apk 里面解压拿，这样比较方便
 
-### 生成符号表
+### 生成符号表(不必须)
 
    1. 获取 `dump_syms` 的可执行文件，以下方法任选其一：
 
@@ -72,6 +72,8 @@ make install
       ```
 
 ### 分析 dump 文件:
+
+分析 dump 的话，符号表文件 syms 其实不必须，直接 `./minidump_stackwalk 1.dmp` 也没问题
 
 ```bash
 ./minidump_stackwalk 1.dmp ./syms
@@ -118,10 +120,12 @@ Found by: previous frame's frame pointer
 ```
 
 我们还可以使用 ndk 中 (Android/sdk/ndk/21.4.7075529/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin) 提供的`addr2line` 来通过地址符号反解：  
-![](https://cdn.jsdelivr.net/gh/zsqw123/cdn@master/picCDN/202112192223340.png)
+![](https://cdn.jsdelivr.net/gh/zsqw123/cdn@master/picCDN/202112200753287.png)
 
 ```bash
 ➜  bin ./aarch64-linux-android-addr2line -f -C -e /Users/zsqw123/Desktop/libbreakpadapp.so 0x28fa0
-# 输出: crash()
+# 输出如下
+crash() # 出错函数
+/Users/zsqw123/Documents/Project/Kotlin/high-level/1-breakpad/app/src/main/cpp/breakpadapp.cpp:13 # 出错代码行数
 ```
 
