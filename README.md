@@ -35,7 +35,7 @@ make install
 
    ```cpp
    MinidumpDescriptor descriptor(path); // 这个 path 填一个文件夹
-   ExceptionHandler eh(descriptor, nullptr, DumpCallback, nullptr, true, -1);
+   static ExceptionHandler eh(descriptor, nullptr, DumpCallback, nullptr, true, -1);
    ```
 
 ## 分析
