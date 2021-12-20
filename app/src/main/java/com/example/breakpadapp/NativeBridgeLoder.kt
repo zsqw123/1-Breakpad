@@ -24,12 +24,17 @@ object NativeBridgeLoder {
     }
 }
 
-object NativeBridge : INativeBridge {
-    external override fun makeCrash(storePath: String)
+private object NativeBridge : INativeBridge {
+    external override fun makeCrash()
+    external override fun initCrash(storePath: String)
 }
 
-object NativeBridgeSafe : INativeBridge {
-    override fun makeCrash(storePath: String) {
+private object NativeBridgeSafe : INativeBridge {
+    override fun makeCrash() {
         println("触发兜底策略-makeCrash")
+    }
+
+    override fun initCrash(storePath: String) {
+        println("触发兜底策略-initCrash")
     }
 }

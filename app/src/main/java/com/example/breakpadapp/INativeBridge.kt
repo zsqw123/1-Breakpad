@@ -6,5 +6,6 @@ package com.example.breakpadapp
  * Date 2021/12/19 10:23 上午
  */
 interface INativeBridge {
-    fun makeCrash(storePath: String)
+    fun makeCrash()
+    fun initCrash(storePath: String)
 }

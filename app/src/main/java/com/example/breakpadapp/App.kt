@@ -18,6 +18,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        NativeBridgeLoder.load()
+        val f = getExternalFilesDir("breakpadDump")
+            ?: File(filesDir, "/breakpadDump/")
+        if (!f.exists()) f.mkdirs()
+        NativeBridgeLoder.load().initCrash(f.path)
     }
 }

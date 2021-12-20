@@ -10,10 +10,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val breakpadDumpFile = getExternalFilesDir("breakpadDump")
-            ?: File(filesDir, "/breakpadDump/")
+//        val breakpadDumpFile = getExternalFilesDir("breakpadDump")
+//            ?: File(filesDir, "/breakpadDump/")
         binding.btNativeCrash.setOnClickListener {
-            NativeBridgeLoder.load().makeCrash(breakpadDumpFile.absolutePath)
+            NativeBridgeLoder.load().makeCrash()
         }
     }
 }

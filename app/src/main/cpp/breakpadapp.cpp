@@ -23,11 +23,16 @@ bool DumpCallback(const google_breakpad::MinidumpDescriptor &descriptor,
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_breakpadapp_NativeBridge_makeCrash(JNIEnv *env, jobject thiz, jstring store_path) {
-    const char *path = env->GetStringUTFChars(store_path, nullptr);
-    LOGW("=====%s=====", path);
-    MinidumpDescriptor descriptor(path);
-    ExceptionHandler eh(descriptor, nullptr, DumpCallback, nullptr, true, -1);
+Java_com_example_breakpadapp_NativeBridge_makeCrash(JNIEnv *env, jobject thiz) {
     crash();
 }
 
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_example_breakpadapp_NativeBridge_initCrash(JNIEnv *env, jobject thiz, jstring store_path) {
+    const char *path = env->GetStringUTFChars(store_path, nullptr);
+    LOGW("=====%s=====", path);
+    MinidumpDescriptor descriptor(path);
+    static ExceptionHandler eh(descriptor, nullptr, DumpCallback, nullptr, true, -1);
+}
